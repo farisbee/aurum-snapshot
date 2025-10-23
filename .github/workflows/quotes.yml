@@ -1,14 +1,17 @@
 name: Update Bullion Quotes
 on:
   schedule:
-    - cron: "*/10 * * * *"     # every 10 minutes (UTC)
-  workflow_dispatch: {}         # manual "Run workflow" button
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}
+
 permissions:
-  contents: write               # allow the bot to commit JSON
+  contents: write
+
 jobs:
   run:
     runs-on: ubuntu-latest
     env:
+      TZ: Asia/Kuala_Lumpur              # set runner timezone (optional)
       TARGET_URL: ${{ secrets.BULLION_TARGET_URL }}
     steps:
       - uses: actions/checkout@v4
@@ -17,11 +20,23 @@ jobs:
           node-version: "20"
       - run: npm i
       - run: npx playwright install --with-deps
-      - run: node scraper.js
+      - name: Run scraper
+        run: node scraper.js
       - name: Commit & push JSON
+        if: success()                         # only commit when parse succeeded
         run: |
           git config user.name "auto-bot"
           git config user.email "bot@example.com"
           git add data/quotes.json
           git commit -m "Update quotes [skip ci]" || echo "No changes"
           git push
+      - name: Upload debug artifacts
+        if: always()                          # always upload for visibility
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug
+          path: |
+            debug/page.png
+            debug/content.html
+            debug/text.txt
+          if-no-files-found: ignore
