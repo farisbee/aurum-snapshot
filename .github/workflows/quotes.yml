@@ -11,8 +11,9 @@ jobs:
   run:
     runs-on: ubuntu-latest
     env:
-      TZ: Asia/Kuala_Lumpur              # set runner timezone (optional)
+      TZ: Asia/Kuala_Lumpur
       TARGET_URL: ${{ secrets.BULLION_TARGET_URL }}
+      BROWSER: firefox                 # try firefox first; switch to chromium/webkit if needed
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,7 +24,7 @@ jobs:
       - name: Run scraper
         run: node scraper.js
       - name: Commit & push JSON
-        if: success()                         # only commit when parse succeeded
+        if: success()
         run: |
           git config user.name "auto-bot"
           git config user.email "bot@example.com"
@@ -31,7 +32,7 @@ jobs:
           git commit -m "Update quotes [skip ci]" || echo "No changes"
           git push
       - name: Upload debug artifacts
-        if: always()                          # always upload for visibility
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: debug
@@ -39,4 +40,4 @@ jobs:
             debug/page.png
             debug/content.html
             debug/text.txt
-          if-no-files-found: ignore
+          if-no-files-found: warn
