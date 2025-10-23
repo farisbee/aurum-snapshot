@@ -1,3 +1,4 @@
+# .github/workflows/quotes.yml
 name: Update Bullion Quotes
 on:
   schedule:
@@ -13,7 +14,6 @@ jobs:
     env:
       TZ: Asia/Kuala_Lumpur
       TARGET_URL: ${{ secrets.BULLION_TARGET_URL }}
-      BROWSER: firefox                 # try firefox first; switch to chromium/webkit if needed
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -21,8 +21,11 @@ jobs:
           node-version: "20"
       - run: npm i
       - run: npx playwright install --with-deps
-      - name: Run scraper
-        run: node scraper.js
+      - name: Run scraper with fallbacks
+        run: |
+          BROWSER=firefox  node scraper.js || \
+          BROWSER=webkit   node scraper.js || \
+          BROWSER=chromium node scraper.js
       - name: Commit & push JSON
         if: success()
         run: |
@@ -39,5 +42,6 @@ jobs:
           path: |
             debug/page.png
             debug/content.html
-            debug/text.txt
+            debug/network.json
+            debug/rows.json
           if-no-files-found: warn
