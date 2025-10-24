@@ -1,37 +1,33 @@
-name: Update Bullion Quotes
+name: Update Bullion Quotes (A)
 
 on:
   schedule:
-    - cron: "*/10 * * * *"        # every 10 minutes (UTC)
+    - cron: "0,20,40 * * * *"   # :00, :20, :40 UTC
   workflow_dispatch: {}
 
 permissions:
   contents: write
 
-# Prevent overlapping runs; cancel any in-progress job if a new one starts
 concurrency:
-  group: aurum-snapshot
+  group: aurum-snapshot-a
   cancel-in-progress: true
 
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 8             # keep under your 10-min schedule
+    timeout-minutes: 8
     env:
       TZ: Asia/Kuala_Lumpur
       TARGET_URL: ${{ secrets.BULLION_TARGET_URL }}
 
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-
       - run: npm i
       - run: npx playwright install --with-deps
 
-      # Try Firefox -> WebKit -> Chromium; allow failure so we can write status.json
       - name: Run scraper with fallbacks
         id: scrape
         run: |
@@ -40,26 +36,19 @@ jobs:
           BROWSER=chromium node scraper.js
         continue-on-error: true
 
-      # Export a boolean we can reuse
-      - name: Flag outcome for next steps
+      - name: Flag outcome
         if: always()
         run: echo "SCRAPE_OK=${{ steps.scrape.outcome == 'success' }}" >> $GITHUB_ENV
 
-      # Write/commit a status file on EVERY run (so you can see last run & result)
       - name: Write status.json (always)
         if: always()
         run: |
           mkdir -p data
           NOW=$(date -u +%s)
           cat > data/status.json <<EOF
-          {
-            "run_at_utc": $NOW,
-            "success": ${SCRAPE_OK:-false},
-            "note": "${{ steps.scrape.outcome }}"
-          }
+          { "run_at_utc": $NOW, "success": ${SCRAPE_OK:-false}, "note": "${{ steps.scrape.outcome }}" }
           EOF
 
-      # Commit quotes.json only if the scraper succeeded
       - name: Commit & push quotes.json (success only)
         if: env.SCRAPE_OK == 'true'
         run: |
@@ -69,7 +58,6 @@ jobs:
           git commit -m "Update quotes [skip ci]" || echo "No changes"
           git push
 
-      # Commit status.json on every run
       - name: Commit & push status.json (always)
         if: always()
         run: |
@@ -79,7 +67,6 @@ jobs:
           git commit -m "Update status [skip ci]" || echo "No changes"
           git push
 
-      # Keep artifacts so you can debug any failed attempt
       - name: Upload debug artifacts
         if: always()
         uses: actions/upload-artifact@v4
