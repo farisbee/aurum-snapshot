@@ -1,15 +1,16 @@
-name: Update Bullion Quotes (A)
+name: Update Bullion Quotes
 
 on:
   schedule:
-    - cron: "0,20,40 * * * *"   
+    - cron: "3,23,43 * * * *"   # :03, :23, :43 UTC
+    - cron: "13,33,53 * * * *"  # :13, :33, :53 UTC (staggered)
   workflow_dispatch: {}
 
 permissions:
   contents: write
 
 concurrency:
-  group: aurum-snapshot-a
+  group: aurum-snapshot
   cancel-in-progress: true
 
 jobs:
