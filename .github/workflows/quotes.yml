@@ -2,7 +2,7 @@ name: Update Bullion Quotes (A)
 
 on:
   schedule:
-    - cron: "0,20,40 * * * *"   # :00, :20, :40 UTC
+    - cron: "0,20,40 * * * *"   
   workflow_dispatch: {}
 
 permissions:
