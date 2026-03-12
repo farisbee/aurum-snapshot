@@ -1,13 +1,13 @@
 {
-  "updated": 1773315864711,
+  "updated": 1773316631554,
   "data": {
     "GOLD : 1 KILO 999.9 (MYR)": {
       "buy": 650444,
-      "sell": 656185
+      "sell": 656177
     },
     "GOLD : 100 GM 999.9 (MYR)": {
       "buy": 65048,
-      "sell": 65661
+      "sell": 65660
     },
     "GOLD : 50 GM 999.9 (MYR)": {
       "buy": 32524,
@@ -22,16 +22,16 @@
       "sell": null
     },
     "SILVER : 1 GRAM 999.0 (MYR)": {
-      "buy": 10.55,
-      "sell": 11.76
+      "buy": 10.53,
+      "sell": 11.75
     },
     "GOLD OZ": {
       "buy": 5177.78,
-      "sell": 5180.21
+      "sell": 5180.15
     },
     "SILVER OZ": {
-      "buy": 86.86,
-      "sell": 87.42
+      "buy": 86.74,
+      "sell": 87.32
     },
     "USD/MYR": {
       "buy": 3.9114,
