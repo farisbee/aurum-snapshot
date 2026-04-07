@@ -1,37 +1,37 @@
 {
-  "updated": 1775599657525,
+  "updated": 1775602200915,
   "data": {
     "GOLD : 1 KILO 999.9 (MYR)": {
-      "buy": 612253,
-      "sell": 617352
+      "buy": 614832,
+      "sell": 619834
     },
     "GOLD : 100 GM 999.9 (MYR)": {
-      "buy": 61229,
-      "sell": 61778
+      "buy": 61487,
+      "sell": 62026
     },
     "GOLD : 50 GM 999.9 (MYR)": {
-      "buy": 30615,
-      "sell": 30902
+      "buy": 30744,
+      "sell": 31026
     },
     "GOLD : 1 TAEL 999.9 (MYR)": {
-      "buy": 23139,
-      "sell": 23332
+      "buy": 23236,
+      "sell": 23425
     },
     "SCRAP GOLD IN FINE WEIGHT OF 1KG": {
-      "buy": 611607,
+      "buy": 614186,
       "sell": null
     },
     "SILVER : 1 GRAM 999.0 (MYR)": {
-      "buy": 9.14,
-      "sell": 10.37
+      "buy": 9.25,
+      "sell": 10.48
     },
     "GOLD OZ": {
-      "buy": 4745.11,
-      "sell": 4749.59
+      "buy": 4765.08,
+      "sell": 4768.7
     },
     "SILVER OZ": {
-      "buy": 73.78,
-      "sell": 74.34
+      "buy": 74.63,
+      "sell": 75.19
     },
     "USD/MYR": {
       "buy": 4.0178,
