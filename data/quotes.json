@@ -1,5 +1,5 @@
 {
-  "updated": 1776633603747,
+  "updated": 1776635533634,
   "data": {
     "GOLD : 1 KILO 999.9 (MYR)": {
       "buy": 608689,
@@ -22,16 +22,16 @@
       "sell": null
     },
     "SILVER : 1 GRAM 999.0 (MYR)": {
-      "buy": 9.59,
-      "sell": 11.26
+      "buy": 9.57,
+      "sell": 11.27
     },
     "GOLD OZ": {
       "buy": 4816.8,
       "sell": 4844.23
     },
     "SILVER OZ": {
-      "buy": 78.78,
-      "sell": 82.88
+      "buy": 78.63,
+      "sell": 83.03
     },
     "USD/MYR": {
       "buy": 3.9349,
